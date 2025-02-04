@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-center align-items-center">
+    <button class="btn btn-link" *ngIf="!status" (click)="editButton()">Update Admin Profile</button>
+    <form *ngIf="status">
+        <label for="image">
+            <input type="file" id="image" style="display: none;" (change)="getFile($event)">
+            <img [src]="proPic" alt="" height="200px">
+        </label>
+        <div class="m-2">
+            <input type="email" [(ngModel)]="adminData.email" placeholder="Enter EmailID" name="em" id="" class="my-4 form-control">
+            <input type="password" [(ngModel)]="adminData.password" placeholder="Enter password" name="pass" id="" class="mb-4 form-control">
+        </div>
+        <div class="m-2 d-flex justify-content-between">
+            <button class="btn btn-success me-2" (click)="handleUpdate()">Update</button>
+            <button class="btn btn-danger" (click)="cancelButton()">Cancel</button>
+        </div>
+    </form>
+</div>

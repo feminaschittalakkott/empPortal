@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-center align-items-center" style="height: 90vh;">
+    <div class="w-75 p-2 border shadow">
+        <h2 class="text-center">Edit Employees</h2>
+        <form action="" #empForm="ngForm" (ngSubmit)="handleEdit()">
+            <input type="text" readonly pattern="[0-9]+" class="form-control mb-3" placeholder="ID" name="eid"
+                [(ngModel)]="employee.id">
+            <input type="text" #empname="ngModel" class="form-control mb-3" required pattern="[a-zA-Z .]+" placeholder="Employee Name" name="ename"
+                [(ngModel)]="employee.name">
+                <p *ngIf="empname.invalid && empname.touched" class="text-danger">
+                    * Valid name is required
+                </p>
+            <input type="text" #empphn="ngModel" class="form-control mb-3" required pattern="^[9876][0-9]{9}" placeholder="Phone" name="ephone"
+                [(ngModel)]="employee.phone">
+                <p *ngIf="empphn.invalid && empphn.touched" class="text-danger">
+                    * Valid phone number is required
+                </p>
+            <select class="form-control mb-3" #empdept="ngModel" name="dept" id="" required [(ngModel)]="employee.department">
+                <option value="" selected disabled>Select Department</option>
+                <option value="IT">IT</option>
+                <option value="Accounts">Accounts</option>
+                <option value="HR">HR</option>
+                <option value="Sales">Sales</option>
+            </select>
+            <p *ngIf="empdept.invalid && empdept.touched" class="text-danger">
+                * Select Department
+            </p>
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-success" [disabled]="empForm.invalid">Update</button>
+                <a routerLink="/empmgt" class="btn btn-danger">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

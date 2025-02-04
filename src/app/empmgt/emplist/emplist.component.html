@@ -1,0 +1,58 @@
+<div class="row w-100" style="height: 90vh;">
+    <div class="col-2">
+        <app-sidebar />
+    </div>
+    <div class="col-10 p-2">
+        <div class="d-flex justify-content-between">
+            <h2>Employee List</h2>
+            <button class="btn btn-danger" (click)="generatePDF()">Export as PDF</button>
+        </div>
+        <p>{{dt | date: 'dd-MMMM-YYYY'}}</p>
+        <div class="my-4 p-3 d-flex justify-content-between">
+            <div class="d-flex">
+                <a routerLink="/empmgt/addemp" class="btn btn-success me-2">Add Employee +</a>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Sort
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" (click)="sortById()">Sort By Id</a></li>
+                        <li><a class="dropdown-item" (click)="sortByName()">Sort By Name</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="w-50">
+                <input class="form-control" type="text" name="key" [(ngModel)]="searchKey" id="" placeholder="Search By Name">
+            </div>
+        </div>
+        <table class="table table-light table-bordered mt-5" *ngIf="employees.length > 0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Department</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of employees | search: searchKey | paginate: { itemsPerPage: 3, currentPage: p }">
+                    <td>{{i.id}}</td>
+                    <td>{{i.name}}</td>
+                    <td>{{i.phone}}</td>
+                    <td>{{i.department | uppercase}}</td>
+                    <td class="text-center">
+                        <a class="btn" routerLink="/empmgt/editemp/{{i.id}}"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <button class="btn"><i class="fa-solid fa-trash" (click)="handleDelete(i.id)"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+        <h4 *ngIf="(employees | search: searchKey).length == 0" class="text-danger text-center">No employees found !!</h4>
+        <h4 *ngIf="employees.length <= 0" class="text-danger text-center">No employees added yet!</h4>
+    </div>
+</div>

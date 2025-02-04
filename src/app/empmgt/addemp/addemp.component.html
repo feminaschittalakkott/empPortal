@@ -1,0 +1,36 @@
+<div class="d-flex justify-content-center align-items-center" style="height: 90vh;">
+    <div class="w-75 p-2 border shadow">
+        <h2 class="text-center">Add Employees</h2>
+        <form #empForm="ngForm" action="" (ngSubmit)="onSubmit()">
+            <input type="text" class="form-control mb-3" #empid="ngModel" pattern="[0-9]+" [(ngModel)]="formData.id" placeholder="ID"
+                name="eid" required>
+            <p *ngIf="empid.invalid && empid.touched" class="text-danger">
+                * Valid ID is required
+            </p>
+            <input type="text" class="form-control mb-3" #empname="ngModel" [(ngModel)]="formData.name"
+                placeholder="Employee Name" name="ename" required pattern="[a-zA-Z. ]+">
+            <p *ngIf="empname.invalid && empname.touched" class="text-danger">
+                * Valid name is required
+            </p>
+            <input type="text" class="form-control mb-3" #empphone="ngModel" [(ngModel)]="formData.phone"
+                placeholder="Phone Number" name="ephone" required pattern="^[9876][0-9]{9}">
+            <p *ngIf="empphone.invalid && empphone.touched" class="text-danger">
+                * Valid phone number is required
+            </p>
+            <select class="form-control mb-3" #empdept="ngModel" name="dept" id="" [(ngModel)]="formData.department" required>
+                <option value="" selected disabled>Select Department</option>
+                <option value="IT">IT</option>
+                <option value="Accounts">Accounts</option>
+                <option value="HR">HR</option>
+                <option value="Sales">Sales</option>
+            </select>
+            <p *ngIf="empdept.invalid && empdept.touched" class="text-danger">
+                * Select Department
+            </p>
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-success" [disabled]="empForm.invalid">Submit</button>
+                <a routerLink="/empmgt" class="btn btn-danger">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
