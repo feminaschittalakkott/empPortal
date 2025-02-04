@@ -7,7 +7,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const toaster = inject(ToastrService)
   const router = inject(Router)
 
-  if(sessionStorage.getItem('username')){
+  if(typeof window !== 'undefined' && sessionStorage.getItem('username')){
     return true;
   }
   else{
